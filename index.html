@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Plano de Mídia Gramado</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Archivo:wght@400;500;600;800;900&display=swap">
+<style>
+/* Layout: full-screen slide deck, navy ground like the Go portfolio; big condensed slate titles left, detail column right; media tiles in vertical 9:16 rows. */
+:root{
+  --navy:#0a1633;
+  --navy-2:#111f43;
+  --line:#26365f;
+  --slate:#a7b6ca;
+  --ink:#eef2f8;
+  --muted:#8f9cb8;
+  --wood:#c9976a;
+  --display:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;
+  --body:"Archivo","Helvetica Neue",Arial,sans-serif;
+  color-scheme:dark;
+  --vw:16px;--vh:9px;
+}
+html,body{height:100%}
+body{margin:0;background:var(--navy);color:var(--ink);font-family:var(--body);overflow:hidden}
+*{box-sizing:border-box}
+.deck{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--s,1));transform-origin:center center}
+html.fluid{--vw:1vw;--vh:1vh}
+html.fluid .deck{position:relative;left:auto;top:auto;width:100%;height:100%;transform:none}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;padding-block:clamp(20px,calc(4.5*var(--vh)),48px);padding-inline:clamp(18px,calc(5.5*var(--vw)),96px);opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s;overflow:hidden}
+.slide.on{opacity:1;visibility:visible}
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;color:var(--muted);font-size:clamp(13px,calc(1.15*var(--vw)),17px);flex:none}
+.top .arrow{width:clamp(60px,calc(6*var(--vw)),96px);height:1px;background:var(--muted);position:relative}
+.top .arrow::after{content:"";position:absolute;right:0;top:-5px;width:10px;height:10px;border-top:1px solid var(--muted);border-right:1px solid var(--muted);transform:rotate(45deg)}
+.foot{margin-top:auto;padding-top:14px;color:var(--muted);font-size:clamp(13px,calc(1.15*var(--vw)),17px);flex:none;display:flex;justify-content:space-between;gap:12px}
+.body{flex:1;min-height:0;display:grid;align-items:center;gap:clamp(20px,calc(4*var(--vw)),72px);padding-block:clamp(10px,calc(2*var(--vh)),24px)}
+.two{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+h1,h2{font-family:var(--display);font-weight:400;color:var(--slate);margin:0;line-height:.9;letter-spacing:.005em;text-wrap:balance}
+h1{font-size:clamp(64px,calc(13*var(--vw)),210px)}
+h2{font-size:clamp(52px,calc(8.4*var(--vw)),150px)}
+.lead{font-size:clamp(16px,calc(1.45*var(--vw)),22px);line-height:1.5;color:var(--ink);max-width:40ch;margin:clamp(14px,calc(2.4*var(--vh)),26px) 0 0;opacity:.92}
+.eyebrow{font-family:var(--body);font-weight:800;letter-spacing:.32em;font-size:11px;color:var(--muted);text-transform:uppercase}
+.kicker{font-family:var(--body);font-weight:900;font-size:clamp(22px,calc(2.1*var(--vw)),34px);line-height:1;text-transform:uppercase;margin:6px 0 18px;color:var(--ink)}
+.list{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.list li{display:grid;grid-template-columns:34px 1fr;gap:14px;align-items:start;padding:clamp(10px,calc(1.6*var(--vh)),16px) 0;border-bottom:1px solid var(--line)}
+.list .ic{width:34px;height:34px;border-radius:8px;background:var(--navy-2);display:grid;place-items:center;color:var(--slate)}
+.list .ic svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.list b{display:block;font-weight:600;font-size:clamp(14px,calc(1.1*var(--vw)),17px)}
+.list span{display:block;color:var(--muted);font-size:clamp(12px,calc(.95*var(--vw)),14px);margin-top:3px;line-height:1.4}
+.dot{display:flex;align-items:center;gap:8px;margin-top:16px;font-weight:800;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink)}
+.dot::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--wood)}
+
+/* cover */
+.cover{background:var(--navy)}
+.cover .bg{position:absolute;inset:0;background:linear-gradient(90deg,var(--navy) 30%,rgba(10,22,51,.55) 62%,rgba(10,22,51,.25)),url("media/predio.jpg") right 30%/auto 130% no-repeat;opacity:1}
+.cover>*:not(.bg){position:relative}
+.cover .body{align-content:center;grid-template-columns:1fr}
+.cover .sub{font-family:var(--body);font-weight:600;letter-spacing:.24em;text-transform:uppercase;font-size:clamp(12px,calc(1.1*var(--vw)),16px);color:var(--wood);margin-top:18px}
+
+/* product */
+.photo{height:min(calc(68*var(--vh)),760px);max-width:100%;aspect-ratio:9/16;justify-self:end;border-radius:14px;overflow:hidden;position:relative}
+.photo img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery{display:flex;gap:10px;justify-self:end;align-items:flex-start}
+.gallery .photo{margin:0}
+.photo.big{width:324px;height:576px;aspect-ratio:auto;flex:none}
+.stack{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.photo.sm{width:159px;height:283px;aspect-ratio:auto;flex:none}
+.photo figcaption{position:absolute;left:12px;bottom:12px;background:rgba(10,22,51,.8);padding:6px 10px;border-radius:6px;font-size:12px;color:var(--ink)}
+.product{grid-template-columns:minmax(0,1.3fr) minmax(0,.8fr) auto}
+
+/* flow */
+.flow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:clamp(24px,calc(5*var(--vh)),56px);counter-reset:s}
+.step{border-top:2px solid var(--line);padding-top:14px;position:relative}
+.step.hot{border-color:var(--wood)}
+.step i{font-style:normal;font-family:var(--display);font-size:clamp(28px,calc(2.6*var(--vw)),44px);color:var(--muted);display:block;line-height:1}
+.step.hot i{color:var(--wood)}
+.step b{display:block;font-size:clamp(14px,calc(1.2*var(--vw)),19px);margin-top:6px}
+.step span{display:block;color:var(--muted);font-size:clamp(12px,calc(.95*var(--vw)),14px);margin-top:4px;line-height:1.4}
+
+/* media tiles */
+.media-slide .body{grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr)}
+.media-slide .body.wide{grid-template-columns:minmax(0,.7fr) minmax(0,1.6fr)}
+.media-slide h2{font-size:clamp(44px,calc(5.8*var(--vw)),110px)}
+.tiles{display:flex;gap:clamp(10px,calc(1.4*var(--vw)),22px);justify-content:flex-end;align-items:flex-end;min-width:0}
+.tile{margin:0;display:flex;flex-direction:column;gap:8px;min-width:0}
+.frame{position:relative;height:var(--th,min(calc(62*var(--vh)),700px));aspect-ratio:9/16;max-width:100%;border-radius:14px;overflow:hidden;background:var(--navy-2)}
+.frame.r34{aspect-ratio:3/4}
+.frame video,.frame img{width:100%;height:100%;object-fit:cover;display:block}
+.tile figcaption{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.sound{position:absolute;right:10px;bottom:10px;border:0;border-radius:999px;background:rgba(10,22,51,.8);color:var(--ink);font:600 12px var(--body);padding:8px 12px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.sound:focus-visible,.nav button:focus-visible,.ba input:focus-visible+.knob{outline:2px solid var(--wood);outline-offset:2px}
+.tag{position:absolute;top:10px;left:10px;background:rgba(10,22,51,.8);color:var(--ink);font:800 10px var(--body);letter-spacing:.2em;padding:5px 8px;border-radius:5px}
+.tag.after{left:auto;right:10px;background:var(--wood);color:var(--navy)}
+
+/* before/after slider */
+.ba .after-img{position:absolute;inset:0;clip-path:inset(0 0 0 var(--p,50%))}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;z-index:3}
+.ba .bar{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;background:var(--ink);z-index:2;pointer-events:none}
+.ba .knob{position:absolute;top:50%;left:var(--p,50%);width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:50%;background:var(--ink);z-index:2;pointer-events:none;display:grid;place-items:center;color:var(--navy);font:800 14px var(--body)}
+
+/* case */
+.phone{height:min(calc(66*var(--vh)),700px);aspect-ratio:9/18.5;max-width:100%;justify-self:end;border-radius:40px;border:10px solid #05091a;background:#05091a;overflow:hidden;position:relative}
+.phone video{width:100%;height:100%;object-fit:cover;display:block}
+.phone .handle{position:absolute;top:0;left:0;right:0;padding:26px 14px 12px;background:linear-gradient(rgba(5,9,26,.85),transparent);font:700 13px var(--body);color:var(--ink);display:flex;align-items:center;gap:8px}
+.phone .handle::before{content:"";width:26px;height:26px;border-radius:50%;background:var(--wood)}
+.linkbtn{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:12px 18px;border-radius:999px;border:1px solid var(--slate);color:var(--ink);text-decoration:none;font-weight:600;font-size:15px}
+.linkbtn:hover{background:var(--navy-2)}
+.case{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) auto}
+
+
+/* pair media slides: text left, media right at native aspect ratio, no cropping */
+.body.pair{grid-template-columns:440px auto;justify-content:center;align-items:center;gap:64px}
+.pair .txt{min-width:0}
+.body.pair.solo{grid-template-columns:600px auto;gap:96px}
+.pair .lead{max-width:34ch}
+.row{display:flex;gap:28px;align-items:flex-end;flex:none}
+.m{margin:0;display:flex;flex-direction:column;gap:10px;min-width:0;align-items:flex-start;flex:none}
+.m .frame{max-width:none;aspect-ratio:auto;flex:none}
+.m .frame video,.m .frame img{object-fit:contain;background:var(--navy-2)}
+.m figcaption{font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;font-weight:600}
+.media-slide h2{font-size:96px}
+/* browser mockup */
+.browser{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--navy-2);min-width:0}
+.bbar{display:flex;align-items:center;gap:6px;padding:12px 14px;border-bottom:1px solid var(--line)}
+.bbar i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.bbar span{margin-left:10px;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:var(--navy);border-radius:6px;padding:6px 10px;font-size:12px;color:var(--muted)}
+.bview{padding:clamp(28px,calc(5*var(--vh)),64px) clamp(20px,calc(3*var(--vw)),48px);background:linear-gradient(160deg,var(--navy-2),var(--navy));min-height:min(calc(46*var(--vh)),480px);display:flex;flex-direction:column;justify-content:center}
+.bview .bname{font-family:var(--display);font-size:clamp(44px,calc(5*var(--vw)),88px);line-height:.95;color:var(--ink);margin-top:10px}
+.bview p{color:var(--muted);max-width:40ch;line-height:1.5;margin:12px 0 0}
+/* packages */
+.packs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,calc(1.6*var(--vw)),24px);margin-top:clamp(18px,calc(4*var(--vh)),40px);align-items:stretch}
+.pack{background:var(--navy-2);border-radius:14px;padding:clamp(18px,calc(2*var(--vw)),30px);display:flex;flex-direction:column;gap:10px;border:1px solid var(--line)}
+.pack.hi{border-color:var(--wood)}
+.pack .lvl{font:800 11px var(--body);letter-spacing:.24em;text-transform:uppercase;color:var(--wood)}
+.pack h3{font-family:var(--display);font-weight:400;font-size:clamp(34px,calc(3.2*var(--vw)),54px);line-height:.95;margin:0;color:var(--ink)}
+.pack p{margin:0;color:var(--muted);font-size:clamp(13px,calc(1*var(--vw)),15px);line-height:1.45}
+.pack ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:clamp(13px,calc(1.05*var(--vw)),16px)}
+.pack li{display:grid;grid-template-columns:14px 1fr;gap:8px}
+.pack li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--slate);margin-top:.5em}
+.pack .plus{color:var(--slate);font-weight:600}
+
+/* steps next */
+.next{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,calc(2*var(--vw)),32px);margin-top:clamp(24px,calc(5*var(--vh)),56px)}
+.next div{border-top:2px solid var(--wood);padding-top:14px}
+.next i{font-style:normal;font-family:var(--display);font-size:clamp(34px,calc(3*var(--vw)),52px);color:var(--wood);line-height:1}
+.next b{display:block;font-size:clamp(16px,calc(1.4*var(--vw)),22px);margin-top:6px}
+.next span{display:block;color:var(--muted);margin-top:4px;font-size:clamp(13px,calc(1.05*var(--vw)),16px);line-height:1.45}
+.contact{margin-top:clamp(20px,calc(4*var(--vh)),40px);color:var(--ink);font-size:clamp(15px,calc(1.3*var(--vw)),20px);user-select:all}
+
+/* nav */
+.nav{position:fixed;right:clamp(12px,calc(2*var(--vw)),28px);bottom:calc(clamp(12px,calc(2*var(--vh)),24px) + env(safe-area-inset-bottom,0px));display:flex;gap:6px;align-items:center;z-index:10}
+.nav button{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:var(--navy-2);color:var(--ink);cursor:pointer;display:grid;place-items:center;font:600 16px var(--body)}
+.nav button:hover{border-color:var(--slate)}
+.count{font:600 13px var(--body);color:var(--muted);min-width:48px;text-align:center;font-variant-numeric:tabular-nums}
+.progress{position:fixed;left:0;top:0;height:3px;background:var(--wood);transition:width .4s ease;z-index:10}
+.foot .pg{visibility:hidden}
+
+@media (orientation:portrait) and (max-width:860px){
+  body{overflow:hidden}
+  .slide{overflow-y:auto;padding-bottom:84px}
+  .body,.two,.product,.case,.media-slide .body,.media-slide .body.wide{grid-template-columns:1fr;align-items:start}
+  .tag{font-size:9px;letter-spacing:.1em}
+  .photo,.phone{justify-self:start;height:auto;width:min(100%,300px)}
+  .gallery{justify-self:start;width:100%}.photo.big{width:60%;height:auto}.stack{width:40%}.photo.sm{height:auto;width:100%}
+  .tiles{justify-content:flex-start;flex-wrap:wrap}
+  .body.pair{grid-template-columns:1fr;gap:24px}.row{flex-wrap:wrap;gap:14px}.m{flex:1 1 calc(50% - 7px)}.m .frame{height:auto!important;width:100%!important;aspect-ratio:3/4}.photo.big,.photo.sm{width:100%!important;height:auto!important;aspect-ratio:9/16}.media-slide h2{font-size:56px}
+  .tile{flex:1 1 calc(50% - 10px)}
+  .frame{height:auto;width:100%}
+  .flow{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:18px}
+  .packs,.next{grid-template-columns:1fr}
+  .cover .bg{background:linear-gradient(0deg,var(--navy) 35%,rgba(10,22,51,.5)),url("media/predio.jpg") center top/cover no-repeat}
+}
+@media (prefers-reduced-motion:reduce){.slide,.progress{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<main class="deck" id="deck">
+
+<!-- 1 CAPA -->
+<section class="slide cover" data-title="Capa">
+  <div class="bg" role="img" aria-label="Fachada do empreendimento em Gramado"></div>
+  <div class="top"><span>Proposta e Apresentação</span><span class="arrow"></span></div>
+  <div class="body">
+    <div>
+      <h1>Plano<br>de mídia</h1>
+      <div class="sub">Empreendimento · Gramado RS</div>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company 360</span></div>
+</section>
+
+<!-- 2 COMO TRABALHAMOS -->
+<section class="slide" data-title="Como trabalhamos">
+  <div class="top"><span>Proposta e Apresentação</span><span class="arrow"></span></div>
+  <div class="body two">
+    <div>
+      <h2>Como<br>trabalhamos</h2>
+      <p class="lead">Somos especialistas em marketing imobiliário. Transformamos empreendimentos em produtos desejados, com imagem, estratégia e comunicação pensadas para vender.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Gocompany360</div>
+      <div class="kicker">Nosso método</div>
+      <ul class="list">
+        <li><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><b>Estratégia</b><span>Entendemos o produto e para quem ele deve ser vendido</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M17 10l4-2v8l-4-2"/></svg></div><div><b>Produção</b><span>Fotos, vídeos, renders e conteúdo com IA</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l18-7-7 18-2-8-9-3z"/></svg></div><div><b>Divulgação</b><span>Presença digital e anúncios que geram contatos</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 19h16M7 16V9M12 16V5M17 16v-4"/></svg></div><div><b>Acompanhamento</b><span>Relatórios e ajustes para o estoque girar</span></div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<!-- 3 O PRODUTO -->
+<section class="slide" data-title="O produto">
+  <div class="top"><span>Leitura do produto</span><span class="arrow"></span></div>
+  <div class="body product">
+    <div>
+      <h2>O<br>produto</h2>
+      <p class="lead">Um empreendimento pronto, com a arquitetura que é a cara de Gramado. O produto está pronto. Agora é hora de apresentá-lo ao mercado.</p>
+    </div>
+    <div>
+      <div class="eyebrow">Gocompany360</div>
+      <div class="kicker">O que enxergamos</div>
+      <ul class="list">
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 20h18M5 20V9l7-5 7 5v11M9 20v-5h6v5"/></svg></div><div><b>Arquitetura marcante</b><span>Pedra, madeira e identidade serrana</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div><div><b>Pronto para morar</b><span>Sem espera e sem risco de obra</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 1114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><div><b>Localização de valor</b><span>Gramado, destino turístico o ano todo</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"/></svg></div><div><b>Próximo passo</b><span>Levar o produto até o comprador certo, com imagem e presença digital</span></div></li>
+      </ul>
+    </div>
+    <div class="gallery">
+      <figure class="photo big"><img src="media/predio.jpg" alt="Fachada do empreendimento em Gramado, com pedra e madeira"></figure>
+      <div class="stack">
+        <figure class="photo sm"><img src="media/predio-rua.jpg" alt="Empreendimento visto da rua"></figure>
+        <figure class="photo sm"><img src="media/predio-frente.jpg" alt="Fachada frontal do empreendimento"></figure>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<!-- 4 COMO SE VENDE -->
+<section class="slide" data-title="Como se vende">
+  <div class="top"><span>Proposta e Apresentação</span><span class="arrow"></span></div>
+  <div class="body" style="grid-template-columns:1fr;align-content:center">
+    <div>
+      <h2>Como se vende um<br>imóvel pronto</h2>
+      <p class="lead" style="max-width:62ch">Quem compra em Gramado muitas vezes está longe: em Porto Alegre, em Santa Catarina, em São Paulo. A decisão começa pela tela. Por isso, a imagem é o primeiro corretor do empreendimento.</p>
+      <div class="flow">
+        <div class="step hot"><i>01</i><b>Imagem</b><span>Fotos e vídeos que mostram o melhor do produto</span></div>
+        <div class="step"><i>02</i><b>Material de venda</b><span>Apresentação, fichas e tabela para corretores</span></div>
+        <div class="step"><i>03</i><b>Presença digital</b><span>Instagram e página do empreendimento</span></div>
+        <div class="step"><i>04</i><b>Divulgação</b><span>Anúncios para quem procura imóvel em Gramado</span></div>
+        <div class="step"><i>05</i><b>Contato</b><span>Interessados chegando direto no WhatsApp</span></div>
+        <div class="step hot"><i>06</i><b>Venda</b><span>Estoque girando</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<!-- MIDIA -->
+<section class="slide media-slide" data-title="Vídeo do empreendimento">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair solo">
+    <div class="txt"><h2>Vídeo de<br>apresentação</h2><p class="lead">Vídeo que conta a história do prédio e mostra fachada, unidades e vista. Um material que apresenta o produto sozinho, em qualquer lugar.</p><div class="dot">Captação, edição, trilha e cortes para redes</div></div>
+    <div class="row"><figure class="m"><div class="frame" style="width:394px;height:700px"><video src="media/louvre.mp4" poster="media/louvre-poster.jpg" muted loop playsinline preload="metadata"></video><button class="sound" type="button">Ativar som</button></div><figcaption>Vídeo de apresentação</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<section class="slide media-slide" data-title="Renders com IA">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair">
+    <div class="txt"><h2>Renders<br>com IA</h2><p class="lead">Damos vida a renders e imagens estáticas com movimento e IA. Uma imagem parada vira um passeio realista pelo empreendimento.</p><div class="dot">Entrega em até 5 dias</div></div>
+    <div class="row"><figure class="m"><div class="frame" style="width:451px;height:560px"><video src="media/magnific.mp4" poster="media/magnific-poster.jpg" muted loop playsinline preload="metadata"></video></div><figcaption>Render animado</figcaption></figure><figure class="m"><div class="frame" style="width:360px;height:640px"><video src="media/sync.mp4" poster="media/sync-poster.jpg" muted loop playsinline preload="metadata"></video><button class="sound" type="button">Ativar som</button></div><figcaption>Vídeo criado a partir de render</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<section class="slide media-slide" data-title="Vazio · Sala">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair">
+    <div class="txt"><div class="eyebrow" style="color:var(--wood);margin-bottom:14px">Do vazio ao desejo</div><h2>Sala de estar</h2><p class="lead">Unidade vazia não gera desejo. Com IA, mobiliamos o ambiente para o comprador se imaginar morando ali.</p><div class="dot">Arraste a imagem para comparar</div></div>
+    <div class="row"><figure class="m"><div class="frame ba" style="width:435px;height:580px"><img src="media/vazio1-antes.jpg" alt="Sala antes"><img class="after-img" src="media/vazio1-depois.jpg" alt="Sala depois"><span class="tag">Antes</span><span class="tag after">Depois</span><div class="bar"></div><div class="knob">↔</div><input type="range" min="0" max="100" value="50" aria-label="Comparar sala antes e depois" id="ba-vazio1"></div><figcaption>Imagem · arraste para comparar</figcaption></figure><figure class="m"><div class="frame" style="width:435px;height:580px"><video src="media/ia-2.mp4" poster="media/ia-2-poster.jpg" muted loop playsinline preload="metadata"></video></div><figcaption>Vídeo da mesma cena</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<section class="slide media-slide" data-title="Vazio · Quarto">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair">
+    <div class="txt"><div class="eyebrow" style="color:var(--wood);margin-bottom:14px">Do vazio ao desejo</div><h2>Suíte</h2><p class="lead">A mesma unidade vazia, agora decorada. Imagem e vídeo prontos para anúncios e redes.</p></div>
+    <div class="row"><figure class="m"><div class="frame ba" style="width:435px;height:580px"><img src="media/vazio2-antes.jpg" alt="Quarto antes"><img class="after-img" src="media/vazio2-depois.jpg" alt="Quarto depois"><span class="tag">Antes</span><span class="tag after">Depois</span><div class="bar"></div><div class="knob">↔</div><input type="range" min="0" max="100" value="50" aria-label="Comparar quarto antes e depois" id="ba-vazio2"></div><figcaption>Imagem · arraste para comparar</figcaption></figure><figure class="m"><div class="frame" style="width:435px;height:580px"><video src="media/ia-1.mp4" poster="media/ia-1-poster.jpg" muted loop playsinline preload="metadata"></video></div><figcaption>Vídeo da mesma cena</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<section class="slide media-slide" data-title="Obra · Cozinha">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair">
+    <div class="txt"><div class="eyebrow" style="color:var(--wood);margin-bottom:14px">Da obra ao pronto</div><h2>Cozinha</h2><p class="lead">Mesmo antes da última demão de tinta, mostramos como a unidade vai ficar pronta e decorada.</p></div>
+    <div class="row"><figure class="m"><div class="frame ba" style="width:371px;height:660px"><img src="media/obra2-antes.jpg" alt="Cozinha antes"><img class="after-img" src="media/obra2-depois.jpg" alt="Cozinha depois"><span class="tag">Antes</span><span class="tag after">Depois</span><div class="bar"></div><div class="knob">↔</div><input type="range" min="0" max="100" value="50" aria-label="Comparar cozinha antes e depois" id="ba-obra2"></div><figcaption>Imagem · arraste para comparar</figcaption></figure><figure class="m"><div class="frame" style="width:375px;height:660px"><video src="media/transf-2.mp4" poster="media/transf-2-poster.jpg" muted loop playsinline preload="metadata"></video></div><figcaption>Vídeo de transformação</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<section class="slide media-slide" data-title="Obra · Dormitório">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair">
+    <div class="txt"><div class="eyebrow" style="color:var(--wood);margin-bottom:14px">Da obra ao pronto</div><h2>Dormitório</h2><p class="lead">Do contrapiso ao ambiente decorado, com iluminação e móveis.</p></div>
+    <div class="row"><figure class="m"><div class="frame ba" style="width:371px;height:660px"><img src="media/obra1-antes.jpg" alt="Dormitório antes"><img class="after-img" src="media/obra1-depois.jpg" alt="Dormitório depois"><span class="tag">Antes</span><span class="tag after">Depois</span><div class="bar"></div><div class="knob">↔</div><input type="range" min="0" max="100" value="50" aria-label="Comparar dormitório antes e depois" id="ba-obra1"></div><figcaption>Imagem · arraste para comparar</figcaption></figure><figure class="m"><div class="frame" style="width:379px;height:660px"><video src="media/transf-1.mp4" poster="media/transf-1-poster.jpg" muted loop playsinline preload="metadata"></video></div><figcaption>Vídeo de transformação</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<section class="slide media-slide" data-title="Obra · Mais ambientes">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair">
+    <div class="txt"><div class="eyebrow" style="color:var(--wood);margin-bottom:14px">Da obra ao pronto</div><h2>Mais<br>ambientes</h2><p class="lead">A técnica funciona em qualquer cômodo: closet, living, varanda.</p></div>
+    <div class="row"><figure class="m"><div class="frame ba" style="width:371px;height:660px"><img src="media/obra3-antes.jpg" alt="Closet antes"><img class="after-img" src="media/obra3-depois.jpg" alt="Closet depois"><span class="tag">Antes</span><span class="tag after">Depois</span><div class="bar"></div><div class="knob">↔</div><input type="range" min="0" max="100" value="50" aria-label="Comparar closet antes e depois" id="ba-obra3"></div><figcaption>Closet · arraste para comparar</figcaption></figure><figure class="m"><div class="frame" style="width:372px;height:660px"><video src="media/video.mp4" poster="media/video-poster.jpg" muted loop playsinline preload="metadata"></video></div><figcaption>Living · vídeo de transformação</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<section class="slide media-slide" data-title="Reels comercial">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body pair solo">
+    <div class="txt">
+      <h2>Reels<br>comercial</h2>
+      <p class="lead">Conteúdo vertical com corretor, que apresenta as unidades e coloca o empreendimento no feed de quem está procurando imóvel.</p>
+      <ul class="list" style="margin-top:24px">
+        <li><div class="ic"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="2"/></svg></div><div><b>Formato vertical</b><span>9:16, feito para tela cheia</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></svg></div><div><b>Cortes dinâmicos e legendas</b><span>Assiste com ou sem som</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 11l18-7-7 18-2-8-9-3z"/></svg></div><div><b>Pronto para anúncio</b><span>Reels, Stories e tráfego pago</span></div></li>
+      </ul>
+    </div>
+    <div class="row"><figure class="m"><div class="frame" style="width:394px;height:700px"><video src="media/reels-corretor.mp4" poster="media/reels-corretor-poster.jpg" muted loop playsinline preload="metadata"></video><button class="sound" type="button">Ativar som</button></div><figcaption>Reels com corretor</figcaption></figure></div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<!-- 10 CASE -->
+<section class="slide" data-title="Case Infinity">
+  <div class="top"><span>Case</span><span class="arrow"></span></div>
+  <div class="body two">
+    <div>
+      <div class="eyebrow" style="color:var(--wood)">Case · Perfil do empreendimento</div>
+      <h2 style="margin-top:12px">Infinity<br>Residence</h2>
+      <p class="lead">Criamos o perfil do empreendimento do zero e cuidamos de toda a comunicação: identidade, conteúdo e planejamento.</p>
+      <a class="linkbtn" href="https://www.instagram.com/infinityresidencesm/" target="_blank" rel="noopener">Ver perfil no Instagram →</a>
+    </div>
+    <div>
+      <div class="kicker" style="margin-top:0">O que fizemos</div>
+      <ul class="list">
+        <li><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3.5"/></svg></div><div><b>Perfil próprio</b><span>Instagram exclusivo do empreendimento</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div><div><b>Plano de conteúdo</b><span>Calendário de 90 dias</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="14" height="12" rx="2"/><path d="M17 10l4-2v8l-4-2"/></svg></div><div><b>Gravações no local</b><span>Captação, edição e finalização</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M3 20c0-3 2.5-5 5-5s5 2 5 5M11 20c0-3 2.5-5 5-5s5 2 5 5"/></svg></div><div><b>Parcerias</b><span>Colaborações com arquitetas nas redes</span></div></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<!-- LANDING PAGE -->
+<section class="slide" data-title="Landing page">
+  <div class="top"><span>O que entregamos</span><span class="arrow"></span></div>
+  <div class="body two">
+    <div>
+      <h2>Landing<br>page</h2>
+      <p class="lead">Uma página exclusiva do empreendimento, feita para transformar visita em contato. É para onde vão os anúncios e os links das redes.</p>
+      <ul class="list" style="margin-top:22px;max-width:520px">
+        <li><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></svg></div><div><b>Página do produto</b><span>Fotos, vídeos, diferenciais e localização</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 20V8l8-4 8 4v12M9 20v-6h6v6"/></svg></div><div><b>Unidades e plantas</b><span>Cada tipologia apresentada com clareza</span></div></li>
+        <li><div class="ic"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/></svg></div><div><b>Contato em um clique</b><span>WhatsApp e formulário direto para o comercial</span></div></li>
+      </ul>
+    </div>
+    <div class="browser">
+      <div class="bbar"><i></i><i></i><i></i><span>gocompany360.github.io/LP-Infinity</span></div>
+      <div class="bview">
+        <div class="eyebrow" style="color:var(--wood)">Case · Landing page</div>
+        <div class="bname">Infinity Residence</div>
+        <p>Landing page criada pela Go Company 360 para o empreendimento Infinity.</p>
+        <a class="linkbtn" href="https://gocompany360.github.io/LP-Infinity/" target="_blank" rel="noopener">Abrir a landing page →</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<!-- 11 PACOTES -->
+<section class="slide" data-title="Como podemos atuar">
+  <div class="top"><span>Proposta e Apresentação</span><span class="arrow"></span></div>
+  <div class="body" style="grid-template-columns:1fr;align-content:center">
+    <div>
+      <h2>Como podemos atuar</h2>
+      <div class="packs">
+        <div class="pack">
+          <div class="lvl">Essencial</div>
+          <h3>Imagem que vende</h3>
+          <p>Para o produto ser apresentado do jeito certo.</p>
+          <ul><li>Ensaio fotográfico profissional</li><li>Vídeo do empreendimento</li><li>Unidades mobiliadas com IA</li><li>Material de venda para corretores</li></ul>
+        </div>
+        <div class="pack">
+          <div class="lvl">Presença</div>
+          <h3>Produto encontrado</h3>
+          <p>Para o empreendimento existir no digital.</p>
+          <ul><li class="plus">Tudo do Essencial</li><li>Identidade do empreendimento</li><li>Instagram do produto</li><li>Landing page do empreendimento</li></ul>
+        </div>
+        <div class="pack hi">
+          <div class="lvl">Vendas ativas</div>
+          <h3>Estoque girando</h3>
+          <p>Para gerar contatos todos os dias.</p>
+          <ul><li class="plus">Tudo do Presença</li><li>Anúncios no Meta Ads</li><li>Reels comerciais e renders com IA</li><li>Apoio a imobiliárias parceiras</li></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company</span></div>
+</section>
+
+<!-- 12 PROXIMOS PASSOS -->
+<section class="slide" data-title="Próximos passos">
+  <div class="top"><span>Proposta e Apresentação</span><span class="arrow"></span></div>
+  <div class="body" style="grid-template-columns:1fr;align-content:center">
+    <div>
+      <h2>Próximos passos</h2>
+      <div class="next">
+        <div><i>01</i><b>Alinhamento</b><span>Entendemos o estoque, as unidades e os objetivos</span></div>
+        <div><i>02</i><b>Proposta personalizada</b><span>Estratégia, cronograma e investimento</span></div>
+        <div><i>03</i><b>Início</b><span>Produção e divulgação</span></div>
+      </div>
+      <p class="contact">fernanda@gocompany360.com.br</p>
+    </div>
+  </div>
+  <div class="foot"><span>Go Company 360</span></div>
+</section>
+
+</main>
+
+<nav class="nav" aria-label="Navegação dos slides">
+  <button type="button" id="prev" aria-label="Slide anterior">←</button>
+  <span class="count" id="count">1 / 16</span>
+  <button type="button" id="next" aria-label="Próximo slide">→</button>
+  <button type="button" id="fs" aria-label="Tela cheia">⛶</button>
+</nav>
+
+<script>
+(function(){
+  var mq=window.matchMedia('(orientation: portrait) and (max-width: 860px)');
+  function fit(){
+    var fl=mq.matches; document.documentElement.classList.toggle('fluid',fl);
+    if(!fl){ var sc=Math.min(window.innerWidth/1600, window.innerHeight/900); document.documentElement.style.setProperty('--s',sc); }
+  }
+  fit(); window.addEventListener('resize',fit); window.addEventListener('orientationchange',fit);
+  if(mq.addEventListener) mq.addEventListener('change',fit);
+})();
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var n=slides.length, cur=0;
+  var count=document.getElementById('count'), prog=document.getElementById('progress');
+  function play(s,on){
+    [].forEach.call(s.querySelectorAll('video'),function(v){
+      if(on){ v.preload='auto'; var p=v.play(); if(p&&p.catch)p.catch(function(){}); }
+      else { v.pause(); }
+    });
+  }
+  function go(i){
+    i=Math.max(0,Math.min(n-1,i));
+    if(i!==cur){ play(slides[cur],false); slides[cur].classList.remove('on'); }
+    cur=i; slides[cur].classList.add('on'); slides[cur].scrollTop=0; play(slides[cur],true);
+    count.textContent=(cur+1)+' / '+n; prog.style.width=((cur+1)/n*100)+'%';
+    try{ history.replaceState(null,'','#s'+(cur+1)); }catch(e){}
+    // preload next slide media
+    if(slides[cur+1]) [].forEach.call(slides[cur+1].querySelectorAll('video'),function(v){v.preload='auto'});
+  }
+  var start=0, m=/^#s(\d+)$/.exec(location.hash||''); if(m) start=+m[1]-1;
+  slides[0].classList.add('on'); go(start); if(start===0) play(slides[0],true);
+  document.getElementById('prev').onclick=function(){go(cur-1)};
+  document.getElementById('next').onclick=function(){go(cur+1)};
+  document.getElementById('fs').onclick=function(){
+    try{ if(document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen().catch(function(){}); }catch(e){}
+  };
+  document.addEventListener('keydown',function(e){
+    if(e.target && e.target.type==='range') return;
+    if(['ArrowRight','PageDown',' '].indexOf(e.key)>-1){e.preventDefault();go(cur+1)}
+    else if(['ArrowLeft','PageUp'].indexOf(e.key)>-1){e.preventDefault();go(cur-1)}
+    else if(e.key==='Home'){go(0)} else if(e.key==='End'){go(n-1)}
+    else if(e.key==='f'||e.key==='F'){document.getElementById('fs').click()}
+  });
+  var tx=null,ty=null;
+  document.addEventListener('touchstart',function(e){ if(e.target.type==='range'){tx=null;return} tx=e.touches[0].clientX; ty=e.touches[0].clientY; },{passive:true});
+  document.addEventListener('touchend',function(e){ if(tx===null)return; var dx=e.changedTouches[0].clientX-tx, dy=e.changedTouches[0].clientY-ty; if(Math.abs(dx)>60&&Math.abs(dx)>Math.abs(dy)*1.5) go(cur+(dx<0?1:-1)); tx=null; },{passive:true});
+  // sound toggles
+  [].forEach.call(document.querySelectorAll('.sound'),function(b){
+    b.addEventListener('click',function(ev){
+      ev.stopPropagation();
+      var v=b.parentNode.querySelector('video'); v.muted=!v.muted;
+      if(!v.muted){ v.currentTime=0; var p=v.play(); if(p&&p.catch)p.catch(function(){}); }
+      b.textContent=v.muted?'Ativar som':'Desativar som';
+    });
+  });
+  // before/after
+  [].forEach.call(document.querySelectorAll('.ba input'),function(r){
+    var f=r.parentNode; function upd(){ f.style.setProperty('--p', r.value+'%'); }
+    r.addEventListener('input',upd); upd();
+  });
+})();
+</script>
+
+</body>
+</html>
